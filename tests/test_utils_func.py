@@ -1,5 +1,4 @@
 import unittest
-
 from utils.utils_func import is_prime
 
 '''

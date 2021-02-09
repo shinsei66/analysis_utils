@@ -3,6 +3,8 @@ import sys
 
 def is_prime(num:int) -> bool:
     '''
+    Examples
+    -----------
     >>> is_prime(1)
     False
     >>> is_prime(3)
