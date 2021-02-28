@@ -2,7 +2,7 @@ import unittest
 from utils.utils_func import is_prime
 
 '''
-python -m unittest test.test_utils_func
+python -m unittest test.test_utils_func -v
 '''
 
 class PrimeTest(unittest.TestCase):
