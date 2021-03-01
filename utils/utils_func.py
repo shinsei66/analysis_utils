@@ -1,3 +1,12 @@
+'''Utility functions for data analysis and machine learning\
+    experiment piplines.
+
+    
+Example
+---------
+>>> from analysis_utils.utils import *
+'''
+
 import sys
 import logging
 import argparse
@@ -14,9 +23,12 @@ def is_prime(num: int) -> bool:
     False
     >>> is_prime(3)
     True
-    Args:
+    Parameters
+    -----------
     num : Any integers
-    Return:
+    
+    Returns
+    -----------
     Judge result that whether the num is a prime number
     '''
     if num <= 1:
@@ -36,20 +48,22 @@ def create_logger(
         log_version_name: str,
         logger_name: Optional[str] = 'Log',
         log_path: Optional[str] = '../logs') -> logging.Logger:
-    """
-    >> logger = create_logger(log_version_name)
-    >> logger.info('Hello World')
-
-    Parameters :
-    ============
+    '''Function to create a logger
+    Examples
+    -----------
+    >>> logger = create_logger(log_version_name)
+    >>> logger.info('Hello World')
+    
+    Parameters
+    ------------
     log_version_name : the name of the log files
-    logger_name : if you want to set up different
-    logger, please define its name here
+    logger_name : if you want to set up different\
+        logger, please define its name here
     log_path : directory path of log files
-    Returns :
-    ============
+    Returns
+    ------------
     logger : logger object
-    """
+    '''
     format_str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(level=logging.INFO, format=format_str,
                         filename=f'{log_path}/{log_version_name}.log')
@@ -58,26 +72,30 @@ def create_logger(
 
 
 def get_args(Description: str) -> argparse.Namespace:
-    """
-    >> args = get_args(Description)
-    >> with open(args.config_path, 'r') as f:
-         config = yaml.safe_load(f)
-    >> PARAMETER = config['PARAMETER']
+    '''Function to get a argument parser
+    Examples
+    ------------
+    >>> args = get_args(Description)
+    >>> with open(args.config_path, 'r') as f:
+    ...     config = yaml.safe_load(f)
+    >>> PARAMETER = config['PARAMETER']
 
-    Command line usage
-    $ python XX.py ./config/XX.yaml
+    Commandline Usage ::
 
-    yaml file example
-    PARAMETER : 1
+        $ python xx.py ./config/xx.yaml
 
-    Parameters :
-    ============
+    yaml file example ::
+    ------------
+        >>> PARAMETER : 1
+
+    Parameters
+    ------------
     Description : description of the arguments
 
-    Returns :
-    ============
+    Returns
+    ------------
     args : argument name space
-    """
+    '''
     parser = argparse.ArgumentParser(description=Description)
     parser.add_argument('config_path', type=str,
                         help='Setting parameter(.yaml)')
@@ -89,22 +107,25 @@ def exp_condition_backup(
         config: dict,
         version_name: str,
         log_path: Optional[str] = './logs') -> None:
-    """ Utility function to save the experiment config yaml
-    files and the exe python scripts
-    >> exp_condition_backup(config, version_name, log_path)
+    ''' Utility function to save the experiment config yaml\
+        files and the exe python scripts
+    
+    Examples
+    ------------
+    >>> exp_condition_backup(config, version_name, log_path)
 
-    Parameters :
-    =============
+    Parameters
+    ------------
     config : imported config dictionary
     version_name : the name of the log file
     log_path : directory path of log files
 
 
-    Returns :
-    =============
+    Returns
+    ------------
     save the imported yaml file and
     the executed python scripts
-    """
+    '''
     log_version_name = version_name + '_' + \
         str(datetime.datetime.now()).replace(' ', '_').replace(':', '_')[:-7]
     with open(f'{log_path}/{log_version_name}_config.yaml', 'w') as f:
