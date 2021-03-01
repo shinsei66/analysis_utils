@@ -8,7 +8,7 @@ python -m build
 
 ## Install the pacakge through the wheel file
 ```
-pip install analysis_utils
+pip install ./dist/analysis_utils-0.0.0-py3-none-any.whl
 ```
  
  ## Usage

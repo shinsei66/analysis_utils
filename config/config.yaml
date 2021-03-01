@@ -1,0 +1,4 @@
+PARAMETER : 'test'
+PARAMETER2 :
+  SUB1 : 2
+LOG_PATH : ./logs

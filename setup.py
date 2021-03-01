@@ -2,7 +2,8 @@ from setuptools import setup, find_packages
 
 
 install_requires = [
-    'pandas', 'pep517>=0.9'
+    'pandas',
+    'pep517>=0.9'
 ]
 
 
