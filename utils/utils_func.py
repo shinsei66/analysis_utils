@@ -1,14 +1,12 @@
 import sys
-import os
-import re
 import logging
 import argparse
 import yaml
 import datetime
-from typing import Optional, List, Tuple
+from typing import Optional
 
 
-def is_prime(num:int) -> bool:
+def is_prime(num: int) -> bool:
     '''
     Examples
     -----------
@@ -30,11 +28,14 @@ def is_prime(num:int) -> bool:
     for i in range(3, num, 2):
         if num % i == 0:
             return False
-  
+
     return True
 
 
-def create_logger(log_version_name: str, logger_name : Optional[str]= 'Log', log_path : Optional[str]='../logs') -> logging.Logger:
+def create_logger(
+        log_version_name: str,
+        logger_name: Optional[str] = 'Log',
+        log_path: Optional[str] = '../logs') -> logging.Logger:
     """
     >> logger = create_logger(log_version_name)
     >> logger.info('Hello World')
@@ -50,12 +51,13 @@ def create_logger(log_version_name: str, logger_name : Optional[str]= 'Log', log
     logger : logger object
     """
     format_str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(level = logging.INFO,format=format_str, filename=f'{log_path}/{log_version_name}.log')
+    logging.basicConfig(level=logging.INFO, format=format_str,
+                        filename=f'{log_path}/{log_version_name}.log')
     logger = logging.getLogger(logger_name)
     return logger
 
 
-def get_args(Description : str) -> argparse.Namespace:
+def get_args(Description: str) -> argparse.Namespace:
     """
     >> args = get_args(Description)
     >> with open(args.config_path, 'r') as f:
@@ -83,9 +85,13 @@ def get_args(Description : str) -> argparse.Namespace:
     return args
 
 
-def exp_condition_backup(config : dict, version_name : str, log_path : Optional[str] = './logs') -> None:
-    """ Utility function to save the experiment config yaml files and the exe python scripts
-    >> exp_condition_backup(config, log_version_name, log_path)
+def exp_condition_backup(
+        config: dict,
+        version_name: str,
+        log_path: Optional[str] = './logs') -> None:
+    """ Utility function to save the experiment config yaml
+    files and the exe python scripts
+    >> exp_condition_backup(config, version_name, log_path)
 
     Parameters :
     =============
@@ -96,12 +102,13 @@ def exp_condition_backup(config : dict, version_name : str, log_path : Optional[
 
     Returns :
     =============
-    save the imported yaml file and 
+    save the imported yaml file and
     the executed python scripts
     """
-    log_version_name = version_name +'_'+ str(datetime.datetime.now()).replace(' ','_').replace(':','_')[:-7]
+    log_version_name = version_name + '_' + \
+        str(datetime.datetime.now()).replace(' ', '_').replace(':', '_')[:-7]
     with open(f'{log_path}/{log_version_name}_config.yaml', 'w') as f:
-        yaml.dump(config,f)
+        yaml.dump(config, f)
     exe_script = str(sys.argv[0])
     with open(f'{exe_script}', 'r') as op:
         scripts = op.read()
@@ -111,7 +118,8 @@ def exp_condition_backup(config : dict, version_name : str, log_path : Optional[
 
 
 def main():
-    log_version_name = str(datetime.datetime.now()).replace(' ','_').replace(':','_')[:-7]+'_Test'
+    log_version_name = str(datetime.datetime.now()).replace(
+        ' ', '_').replace(':', '_')[:-7] + '_Test'
     args = get_args(log_version_name)
     with open(args.config_path, 'r') as f:
         config = yaml.safe_load(f)
